@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="
+http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.1.xsd
+http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.3.xsd
+http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd
+http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
+http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
+http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd">
+
+	<mvc:annotation-driven />
+	<context:annotation-config />
+	<context:component-scan base-package="com.threads" />
+   <!--   默认的映射处理器   -->
+     <bean class="org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping"/>  
+       
+     <!--控制器类名映射处理器 (注意:类名首字母消息.例如:http://192.168.0.88/springmvc-1/testController.do)  -->
+     <bean class="org.springframework.web.servlet.mvc.support.ControllerClassNameHandlerMapping"/>    
+	
+	<!-- spring上传下载文件解析器 -->
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver" />
+	
+	<!-- 另外最好还要加入DefaultAnnotationHandlerMapping，不然会被 XML或其它的映射覆盖！ -->
+	<bean class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping" />
+	<!-- 配置velocity引擎 -->  
+	<bean id="defaultVelocityConfigurer" class="com.threads.utils.DefaultVelocityConfigurer">
+		<!-- 模板存放的路径 -->  
+		<property name="resourceLoaderPath" value="/templates/views/,/templates/" />
+		<property name="configLocation"
+			value="/WEB-INF/classes/config/properties/velocity.properties" />
+	</bean>
+	
+    <!-- 配置 velocity 模板 -->
+	<bean id="velocityEngineF" class="org.springframework.ui.velocity.VelocityEngineFactoryBean">
+        <property name="resourceLoaderPath" value=""></property>
+        <property name="preferFileSystemAccess" value="false"/>
+    </bean>
+    
+     <!-- 配置视图的显示 -->  
+	<bean id="inliantuoviewResolver"
+		class="org.springframework.web.servlet.view.velocity.VelocityViewResolver">
+		<property name="cache" value="true" />
+		<property name="toolboxConfigLocation" value="/WEB-INF/classes/config/spring/common/toolbox.xml" />
+		<!--是否使用spring对宏定义的支持-->  
+		<property name="exposeSpringMacroHelpers" value="true" />
+		<!--是否开放request属性--> 
+		<property name="exposeRequestAttributes" value="true" />
+		<!--request属性引用名称-->  
+		<property name="requestContextAttribute" value="rc" />
+		<!-- 视图文件的前缀，即存放的路径 -->  
+		<property name="prefix" value="" />
+		<!-- 视图文件的后缀名 -->  
+		<property name="suffix" value=".vm" />
+		<!-- <property name="viewClass" value="com.liantuo.wallet.utils.VelocityToolbox20View"/> -->
+		<property name="contentType">
+			<value>text/html; charset=UTF-8</value>
+		</property>
+	</bean>
+	
+
+	<bean id="inliantuoexceptionResolver"
+		class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+		<property name="defaultErrorView">
+			<value>common/Error</value>
+		</property>
+		<property name="exceptionMappings">
+			<props>
+			</props>
+		</property>
+	</bean>
+
+
+    
+    
+	
+	<!-- <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="viewClass" value="org.springframework.web.servlet.view.JstlView"></property>
+		<property name="prefix" value="/jsp/"></property>
+		<property name="suffix" value=".jsp"></property>
+	</bean> -->
+	
+<!-- 	<mvc:interceptors>
+		<mvc:interceptor>
+			设置拦截的路径
+			<mvc:mapping path="/*/*.in" />
+			<bean class="com.liantuo.wallet.sso.SsoInterceptor"/>
+		</mvc:interceptor>
+	</mvc:interceptors> -->
+	
+	
+</beans>

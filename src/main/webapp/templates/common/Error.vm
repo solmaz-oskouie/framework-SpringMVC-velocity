@@ -1,0 +1,60 @@
+<script type='text/javascript' src='${rc.contextPath}/dwr/engine.js'></script>
+<script type='text/javascript' src='${rc.contextPath}/dwr/interface/ThrowExceptionDWR.js'></script>
+<script src="http://static.solaridc.com/jquery/jquery-1.6.min.js" type="text/javascript"></script>
+<script type="text/javascript" src="http://static.solaridc.com/jquery/jquery-1.4.4.js"></script>
+<br><br>
+<table width="600"  border="0" cellspacing="0" cellpadding="0" align=center>
+<tr>
+<td>
+  <table width="100%"  border="0" cellspacing="0" cellpadding="0" align=center>
+	<tr>
+    	<td style="LINE-HEIGHT:150%; padding:6px 8px 6px 8px;   border:1px solid #FFD0A8; background:#ffffee;" align=center>
+    	    <br>
+        	<table width="95%" border="0" cellspacing="0" cellpadding="0" align=left>
+        		<tr>
+        		<td valign=top width=80>
+        		     
+        		</td>
+        		<td style="font-size:14px;LINE-HEIGHT:150%;padding:6px 8px 6px 8px;">
+	
+	        		    <b>您所访问的内容不存在或出现故障。</b><br><br>
+            		
+            		因此而带给您的不便，我们深表歉意。<br><br> 
+            		请稍后重新尝试操作，或者致电系统客服咨询。 
+						
+	
+
+        		</td>
+        		</tr>
+				<tr>
+            		<td colspan="2" valign="top" align="right">
+            		     <input id="subError" type="button" value="反馈错误" onclick="submitError();"/>
+            		</td>
+        	</table>
+    	    <br>
+    	</td>
+	</tr>
+</table></td>
+</tr>
+</table>
+<table style="display:none"><tr><td  id="exceptionTD">
+#ShowException($exception )
+</td></tr></table>
+<script>
+	function submitError(){
+		var exceptionDetial = $("#exceptionTD").html();
+		ThrowExceptionDWR.createThorwException(exceptionDetial,function(data){
+		  if(data == 'NOUSER') {
+		  	alert("请重新登录");
+			return;
+		  }else if(data == "F"){
+			alert("反馈错误出现问题,请稍后再试!");
+			return;
+		  }else{
+			$("#subError").attr("disabled", true);
+			alert("感谢您的反馈，我们会及时处理您的问题!");
+			return;
+		  }
+		});
+	}
+</script>

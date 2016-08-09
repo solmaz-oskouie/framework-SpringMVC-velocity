@@ -1,0 +1,19 @@
+<link rel="stylesheet" type="text/css" href="http://static.solaridc.com/project/51book_b2b/style/content.css" >
+<link rel="stylesheet" type="text/css" href="/css/commonContentStyle51.css" >
+<link rel="stylesheet" type="text/css" href="http://static.solaridc.com/project/51book_fx/css/base.css" />
+<br>
+<div style="width:100%;text-align:center">
+<div class="feedback">
+ <div id="nodata">
+	 <h4>很抱歉，您没有使用此功能的权限！</h4>
+		 <ul>您没有使用此功能的权限，可能是由于以下原因：
+			<li>1. 系统管理员没有给您分配使用此功能的权限；</li>
+			<li>2. 您在修改其他人的数据。</li>
+		 </ul>
+		 <ul>
+		 请联系您公司的系统管理员确认您的权限设置。
+		 </ul>
+</div>
+</div>
+</div>
+ 
